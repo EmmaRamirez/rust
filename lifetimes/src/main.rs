@@ -9,8 +9,8 @@ fn main() {
         complex scenarios
     */
     // 'a = lifetime of a
-    // 'b = lifetime of be
-    fn skip_prefix<'a, 'b>(line: &'a str, prefix: &b' str) -> &'a str {
+    // 'b = lifetime of b
+    fn skip_prefix<'a, 'b>(line: &'a str, prefix: &'b str) -> &'a str {
 
     }
 
@@ -44,10 +44,10 @@ fn main() {
 
     // 'static
     // reference is always alive -- baked into the data
-    let g = &'static str = "Hello, world.";
+    let g: &'static str = "Hello, world.";
 
     static FOO: i32 = 5;
-    let h = x: &'static i32 = &FOO;
+    let h: &'static i32 = &FOO;
 
 
     /*
