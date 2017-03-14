@@ -17,10 +17,24 @@ fn main() {
     */
     let x = 42;
 
+
+    /*
+        THree variables -- y, z, x
+
+    */
     fn foo() {
         let y = 5;
         let z = 100;
     }
 
     foo();
+
+    /*
+        Which to use?
+        Stack-allocation uses LIFO semantics for reclaiming storage.
+        Heap-allocation is more general, allowing storage at an arbitrary order, with some complexity costs.
+
+
+
+    */
 }
