@@ -1,0 +1,6 @@
+[package]
+name = "stack_and_heap"
+version = "0.1.0"
+authors = ["Emma Ramirez <ramirez.emma.g@gmail.com>"]
+
+[dependencies]
