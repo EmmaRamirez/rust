@@ -23,4 +23,29 @@ fn main() {
         // Destructuring works on any compound data type, like tuples or enums
         Point { x, .. } => println!("x is {}", x),
     }
+
+    enum OptionalTuple {
+        Value(i32, i32, i32),
+        Missing,
+    }
+
+    let x = OptionalTuple::Value(5, -2, 3);
+
+    match x {
+        OptionalTuple::Value(..) => println!("Got a tuple!"),
+        OptionalTuple::Missing => println!("No such luck"),
+    }
+
+    let mut x = 5;
+    match x {
+        ref mut r => println!("Got a mutable referencce to {}", r),
+    }
+
+    let x = '💅';
+
+    match x {
+        'a' ... 'j' => println!("early letter"),
+        'k' ... 'z' => println!("late letter"),
+        _ => println!("something else"),
+    }
 }
