@@ -13,8 +13,14 @@ fn main() {
     }
 
     let origin = Point { x: 0, y: 0 };
+    let point = Point { x: 2, y: 3};
 
     match origin {
         Point { x, y } => println!("{}, {}", x, y),
+    }
+
+    match point {
+        // Destructuring works on any compound data type, like tuples or enums
+        Point { x, .. } => println!("x is {}", x),
     }
 }
