@@ -59,4 +59,29 @@ fn main() {
 
     let answer = call_with_one_2(&|x| x + 2);
 
+    fn call_with_one(some_closure: &Fn(i32) -> i32) -> i32 {
+        some_closure(1)
+    }
+
+    fn add_one(i: i32) -> i32 {
+        i + 1
+    }
+
+    let f = add_one;
+    let answer = call_with_one(&f);
+
+    assert_eq!(2, answer);
+
+
+    // Returning a closure
+    fn factory() -> Box<Fn(i32) -> i32> {
+        let num = 5;
+        Box::new(move |x| x + num)
+    }
+
+    let f = factory();
+
+    let answer = f(1);
+    assert_eq!(6, answer);
+
 }
