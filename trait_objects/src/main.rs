@@ -10,4 +10,14 @@ fn main() {
     impl Foo for String {
         fn method(&self) -> String { format!("string: {}", *self) }
     }
+
+    // Static dispatch
+    fn do_something<T: Foo>(x: T) {
+        x.method();
+    }
+
+    let x = 5u8;
+    do_something(x);
+
+
 }
