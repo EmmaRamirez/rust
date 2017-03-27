@@ -11,7 +11,30 @@ struct Player {
 }
 
 impl Player {
+    fn new(hp: i32) -> Player {
+        Player {
+            hp: hp,
+        }
+    }
     fn hp(&self) -> &i32 { &self.hp }
+}
+
+struct Prompt {
+    text: String,
+    showVerticalBars: bool
+}
+
+impl Prompt {
+    pub fn new(text: String, showVerticalBars: bool) -> Prompt {
+        Prompt {
+            text: text,
+            showVerticalBars: showVerticalBars,
+        }
+    }
+
+    // pub fn to_ui(&self) -> String {
+    //
+    // }
 }
 
 fn create_screen(text: &str) -> String {
@@ -25,6 +48,7 @@ fn create_screen(text: &str) -> String {
 
 fn main() {
     println!("{}", create_screen("Welcome to Adventure Land!"));
+    println!("{}", create_screen("1. Continue "));
     // println!("
     //         What class will you play as?
     //         1. Warrior
