@@ -11,12 +11,12 @@ struct Player {
 }
 
 impl Player {
-    fn new(hp: i32) -> Player {
+    pub fn new(hp: i32) -> Player {
         Player {
             hp: hp,
         }
     }
-    fn hp(&self) -> &i32 { &self.hp }
+    pub fn hp(&self) -> &i32 { &self.hp }
 }
 
 struct Prompt {
