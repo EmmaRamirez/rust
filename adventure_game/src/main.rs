@@ -97,10 +97,27 @@ fn main() {
 
     println!("
             What class will you play as?
-            1. Warrior
-            2. Mage
-            3. Knight
+            1> Warrior
+            2> Mage
+            3> Knight
     ");
+
+    let mut playerClass = String::new();
+
+    io::stdin().read_line(&mut playerClass)
+        .expect("You should eneter a number between 1 and 3.");
+
+    let playerClass: u32 = match playerClass.trim().parse() {
+        Ok(num) => num,
+        Err(err) => panic!(""),
+    };
+
+    match playerClass {
+        1 => println!("Warrior"),
+        2 => println!("Mage"),
+        3 => println!("Knight"),
+        n => println!("Could not detect")
+    }
 
     // let mut playerClass = String::new();
     //
