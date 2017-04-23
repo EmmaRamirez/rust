@@ -7,16 +7,19 @@ use std::process::Command;
 
 
 struct Player {
-    hp: i32
+    current_hp: i32,
+    total_hp: i32,
 }
 
 impl Player {
-    pub fn new(hp: i32) -> Player {
+    pub fn new(current_hp: i32, total_hp: i32) -> Player {
         Player {
-            hp: hp,
+            current_hp: current_hp,
+            total_hp: total_hp
         }
     }
-    pub fn hp(&self) -> &i32 { &self.hp }
+    pub fn current_hp(&self) -> &i32 { &self.current_hp }
+    pub fn total_hp(&self) -> &i32 { &self.total_hp }
 }
 
 struct Prompt {
@@ -48,9 +51,9 @@ fn create_screen(text: &str) -> String {
 
 fn main() {
     println!("{}", create_screen("Welcome to Adventure Land!"));
-    println!("{}", create_screen("1. Continue "));
-    let player = Player::new(100);
-    println!("Player HP: {:?}", player.hp);
+    //println!("{}", create_screen("1. Continue "));
+    let player = Player::new(100, 100);
+    println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
     // println!("
     //         What class will you play as?
     //         1. Warrior
