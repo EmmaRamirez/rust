@@ -21,14 +21,14 @@ impl Player {
 
 struct Prompt {
     text: String,
-    showVerticalBars: bool
+    show_vertical_bars: bool
 }
 
 impl Prompt {
-    pub fn new(text: String, showVerticalBars: bool) -> Prompt {
+    pub fn new(text: String, show_vertical_bars: bool) -> Prompt {
         Prompt {
             text: text,
-            showVerticalBars: showVerticalBars,
+            show_vertical_bars: show_vertical_bars,
         }
     }
 
@@ -49,6 +49,8 @@ fn create_screen(text: &str) -> String {
 fn main() {
     println!("{}", create_screen("Welcome to Adventure Land!"));
     println!("{}", create_screen("1. Continue "));
+    let player = Player::new(100);
+    println!("Player HP: {:?}", player.hp);
     // println!("
     //         What class will you play as?
     //         1. Warrior
