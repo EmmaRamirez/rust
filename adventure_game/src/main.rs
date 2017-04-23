@@ -18,10 +18,10 @@ impl Player {
             total_hp: total_hp
         }
     }
-    pub fn modify_current_hp(amount: i32, &self) -> Player {
+    pub fn modify_current_hp(&self, amount: i32) -> Player {
         Player {
-            current_hp: amount,
-            total_hp: &self.total_hp,
+            current_hp: self.current_hp + amount,
+            total_hp: self.total_hp,
         }
     }
     pub fn current_hp(&self) -> &i32 { &self.current_hp }
@@ -60,6 +60,9 @@ fn main() {
     //println!("{}", create_screen("1. Continue "));
     let mut player = Player::new(100, 100);
     println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
+    player = player.modify_current_hp(10);
+    println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
+
     // println!("
     //         What class will you play as?
     //         1. Warrior
