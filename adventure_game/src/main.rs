@@ -1,6 +1,7 @@
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
+use std::io;
 use std::path::Path;
 use std::process::Command;
 
@@ -26,6 +27,24 @@ impl Player {
     }
     pub fn current_hp(&self) -> &i32 { &self.current_hp }
     pub fn total_hp(&self) -> &i32 { &self.total_hp }
+}
+
+struct Monster {
+    current_hp: i32,
+    total_hp: i32,
+    attack: i32,
+    species: String,
+}
+
+impl Monster {
+    pub fn new(current_hp: i32, total_hp: i32, attack: i32, species: String) -> Monster {
+        Monster {
+            current_hp: current_hp,
+            total_hp: total_hp,
+            attack: attack,
+            species: species
+        }
+    }
 }
 
 struct Prompt {
@@ -63,12 +82,25 @@ fn main() {
     player = player.modify_current_hp(10);
     println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
 
-    // println!("
-    //         What class will you play as?
-    //         1. Warrior
-    //         2. Mage
-    //         3. Knight
-    // ");
+    println!("
+        You are a new hero in the Kingdom of Rust. You will meet
+        many friends and fight against many foes. But first, I must
+        ask...
+    ");
+
+    println!("What is your name?");
+
+    let mut playerString = String::new();
+
+    io::stdin().read_line(&mut playerString)
+        .expect("Oops! There was an error reading your input.");
+
+    println!("
+            What class will you play as?
+            1. Warrior
+            2. Mage
+            3. Knight
+    ");
 
     // let mut playerClass = String::new();
     //
