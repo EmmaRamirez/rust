@@ -135,6 +135,13 @@ fn main() {
         n => println!("Could not detect")
     }
 
+    println!("
+            What shall you do next?
+            \e[0;36m[1] Explore
+            \e[0;36m[1] Statistics
+            \e[0;36m[1] Rest
+    ");
+
     // let mut playerClass = String::new();
     //
     // io::stdin().read_line(&mut playerClass)
