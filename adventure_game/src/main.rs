@@ -4,44 +4,47 @@ use std::io::prelude::*;
 use std::io;
 use std::path::Path;
 use std::process::Command;
-
+use std::borrow::Cow;
 
 
 struct Player {
     current_hp: i32,
     total_hp: i32,
+    name: String,
     class: i32,
-    name: &'static str,
     attack: i32,
     defense: i32,
     magic: i32,
 }
 
 impl Player {
-    pub fn new(current_hp: i32, total_hp: i32) -> Player {
+    pub fn new(current_hp: i32, total_hp: i32, name: String, class: i32) -> Player {
         Player {
             current_hp: current_hp,
             total_hp: total_hp,
-            class: 0,
-            name: " ",
+            class: class,
+            name: name,
             attack: 10,
             defense: 10,
             magic: 10
         }
     }
-    pub fn modify_current_hp(&self, amount: i32) -> Player {
+    pub fn modify_current_hp(&self, amount: i32, name: String) -> Player {
         Player {
             current_hp: self.current_hp + amount,
             total_hp: self.total_hp,
             class: self.class,
-            name: self.name,
+            name: name,
             attack: self.attack,
             defense: self.defense,
             magic: self.magic,
         }
     }
+    
+    
     pub fn current_hp(&self) -> &i32 { &self.current_hp }
     pub fn total_hp(&self) -> &i32 { &self.total_hp }
+    pub fn class(&self) -> &i32 { &self.class }
 }
 
 struct Monster {
@@ -92,10 +95,7 @@ fn create_screen(text: &str) -> String {
 fn main() {
     println!("{}", create_screen("Welcome to Adventure Land!"));
     //println!("{}", create_screen("1. Continue "));
-    let mut player = Player::new(100, 100);
-    println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
-    player = player.modify_current_hp(10);
-    println!("Player HP: {:?} / {:?}", player.current_hp, player.total_hp);
+    
 
     println!("
         You are a new hero in the Kingdom of Rust. You will meet
@@ -110,11 +110,14 @@ fn main() {
     io::stdin().read_line(&mut playerString)
         .expect("Oops! There was an error reading your input.");
 
+
+    println!("Your name shall be {}", playerString);
+
     println!("
             What class will you play as?
-            1> Warrior (+Atk/-Mag)
-            2> Mage (+Mag/-Def)
-            3> Knight (+Def/-Atk)
+            1> Warrior   (+Atk/-Mag)
+            2> Mage      (+Mag/-Def)
+            3> Knight    (+Def/-Atk)
     ");
 
     let mut playerClass = String::new();
@@ -122,7 +125,7 @@ fn main() {
     io::stdin().read_line(&mut playerClass)
         .expect("You should eneter a number between 1 and 3.");
 
-    let playerClass: u32 = match playerClass.trim().parse() {
+    let playerClass: i32 = match playerClass.trim().parse() {
         Ok(num) => num,
         Err(err) => panic!(""),
     };
@@ -132,14 +135,17 @@ fn main() {
         1 => println!("Warrior"),
         2 => println!("Mage"),
         3 => println!("Knight"),
-        n => println!("Could not detect")
+        n => println!("Human")
     }
+
+    let mut player = Player::new(100, 100, String::from(playerString), playerClass);
 
     println!("
             What shall you do next?
-            \e[0;36m[1] Explore
-            \e[0;36m[1] Statistics
-            \e[0;36m[1] Rest
+            [1] Explore
+            [2] Statistics
+            [3] Rest (Save)
+            [4] Quit
     ");
 
     // let mut playerClass = String::new();
