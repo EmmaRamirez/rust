@@ -10,19 +10,34 @@ use std::process::Command;
 struct Player {
     current_hp: i32,
     total_hp: i32,
+    class: i32,
+    name: &'static str,
+    attack: i32,
+    defense: i32,
+    magic: i32,
 }
 
 impl Player {
     pub fn new(current_hp: i32, total_hp: i32) -> Player {
         Player {
             current_hp: current_hp,
-            total_hp: total_hp
+            total_hp: total_hp,
+            class: 0,
+            name: " ",
+            attack: 10,
+            defense: 10,
+            magic: 10
         }
     }
     pub fn modify_current_hp(&self, amount: i32) -> Player {
         Player {
             current_hp: self.current_hp + amount,
             total_hp: self.total_hp,
+            class: self.class,
+            name: self.name,
+            attack: self.attack,
+            defense: self.defense,
+            magic: self.magic,
         }
     }
     pub fn current_hp(&self) -> &i32 { &self.current_hp }
@@ -97,9 +112,9 @@ fn main() {
 
     println!("
             What class will you play as?
-            1> Warrior
-            2> Mage
-            3> Knight
+            1> Warrior (+Atk/-Mag)
+            2> Mage (+Mag/-Def)
+            3> Knight (+Def/-Atk)
     ");
 
     let mut playerClass = String::new();
@@ -112,6 +127,7 @@ fn main() {
         Err(err) => panic!(""),
     };
 
+    print!("You chose: ");
     match playerClass {
         1 => println!("Warrior"),
         2 => println!("Mage"),
