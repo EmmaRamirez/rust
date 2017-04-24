@@ -29,16 +29,8 @@ impl Player {
             magic: 10
         }
     }
-    pub fn modify_current_hp(&self, amount: i32, name: String) -> Player {
-        Player {
-            current_hp: self.current_hp + amount,
-            total_hp: self.total_hp,
-            class: self.class,
-            name: name,
-            attack: self.attack,
-            defense: self.defense,
-            magic: self.magic,
-        }
+    pub fn modify_current_hp(&mut self, amount: i32) {
+        self.current_hp += amount;
     }
     
     
@@ -91,6 +83,20 @@ fn create_screen(text: &str) -> String {
     output
 }
 
+fn do_nothing() {
+
+}
+
+fn explore() {
+    println!("You decided to explore.");
+}
+
+fn stats(player: &Player) {
+    println!("
+        Name: {}
+        HP: {}/{}
+    ", player.name, player.current_hp, player.total_hp);
+}
 
 fn main() {
     println!("{}", create_screen("Welcome to Adventure Land!"));
@@ -110,8 +116,7 @@ fn main() {
     io::stdin().read_line(&mut playerString)
         .expect("Oops! There was an error reading your input.");
 
-
-    println!("Your name shall be {}", playerString);
+    println!("Your name shall be {}!", playerString.trim());
 
     println!("
             What class will you play as?
@@ -138,7 +143,7 @@ fn main() {
         n => println!("Human")
     }
 
-    let mut player = Player::new(100, 100, String::from(playerString), playerClass);
+    let mut player = Player::new(100, 100, String::from(playerString.trim()), playerClass);
 
     println!("
             What shall you do next?
@@ -147,6 +152,22 @@ fn main() {
             [3] Rest (Save)
             [4] Quit
     ");
+
+    let mut playerDecision = String::new();
+    
+    io::stdin().read_line(&mut playerDecision)
+        .expect("You should enter a number between 1 and 4");
+    
+    let playerDecision: i32 = match playerDecision.trim().parse() {
+        Ok(num) => num,
+        Err(err) => panic!("")
+    };
+
+    match playerDecision {
+        1 => explore(),
+        2 => stats(&mut player),
+        n => do_nothing()
+    }
 
     // let mut playerClass = String::new();
     //
