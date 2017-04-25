@@ -1,3 +1,5 @@
+extern crate colored;
+use colored::*;
 use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
@@ -5,6 +7,8 @@ use std::io;
 use std::path::Path;
 use std::process::Command;
 use std::borrow::Cow;
+use std::thread::sleep;
+use std::time::Duration;
 
 
 struct Player {
@@ -93,77 +97,201 @@ fn explore() {
 
 fn stats(player: &Player) {
     println!("
-        Name: {}
-        HP: {}/{}
-    ", player.name, player.current_hp, player.total_hp);
+        +---------------------------+
+        |       Name: {}            |
+        |       HP: {}/{}           |
+        |       Atk: {},            |
+        |       Def: {},            |
+        |       Mag: {}             |
+        +---------------------------+
+    ",
+        player.name,
+        player.current_hp,
+        player.total_hp,
+        player.attack,
+        player.defense,
+        player.magic,
+    );
+}
+
+fn option(num: i32) -> ColoredString {
+    let s = format!("[{}]", num);
+    s.yellow()
+}
+
+fn init() {
+    println!("
+        {}{}
+        {} New Game
+        {} Load Game
+        {} Help
+    ",
+        ">".white(), 
+        " Select one option".blue(),
+        option(1),
+        "[2]".yellow(),
+        "[3]".yellow()
+    );
+    let mut decision = String::new();
+    io::stdin().read_line(&mut decision).expect("1 - 3");
+    let decision: i32 = match decision.trim().parse() {
+        Ok(num) => num,
+        Err(num) => panic!(""),
+    };
+    match decision {
+        1 => new_game(),
+        2 => do_nothing(),
+        3 => help(),
+        n => do_nothing(),
+    }
+}
+
+fn help() {
+
+}
+
+fn new_game() {
+
+}
+
+fn delay() {
+    sleep(Duration::new(1, 0));
+}
+
+fn pause() {
+    // from https://users.rust-lang.org/t/rusts-equivalent-of-cs-system-pause/4494/3
+    // let mut stdin = io::stdin();
+    // let mut stdout = io::stdout();
+
+    // write!(stdout, "\n> Press [ENTER] to continue...").unwrap();
+    // stdout.flush();
+}
+
+fn declare_class(class: i32, player: &mut Player) {
+    let chosen_class: &'static str = match class {
+        1 => {
+            player.attack += 5;
+            player.magic -= 5;
+            "Warrior"
+        },
+        2 => {
+            player.magic += 5;
+            player.defense -= 5;
+            "Mage"
+        },
+        3 => {
+            player.defense += 5;
+            player.attack -= 5;
+            "Knight"
+        },
+        n => "Human"
+    };
+    println!("Ah! So you're a {}...", chosen_class.blue());
 }
 
 fn main() {
-    println!("{}", create_screen("Welcome to Adventure Land!"));
-    //println!("{}", create_screen("1. Continue "));
+    //String::from(playerString.trim())
+    // playerCLass
+    let mut player = Player::new(100, 100, "".to_string(), 0);
+
+    init();
+    
     
 
     println!("
+                            [][][] /^^/ [][][]
+                             |::| /___/ |::|
+                             |[]|_|::::|_|[]|
+                             |::::::__::::::|
+                             |:::::/||/:::::|
+                             |:#:::||||::#::|
+                            #%*###&*##&*&#*&##
+                           ##%%*####*%%%###*%*#
+        🏰🏰🏰🏰🏰🏰           {}            🏰🏰🏰🏰🏰🏰
         You are a new hero in the Kingdom of Rust. You will meet
         many friends and fight against many foes. But first, I must
         ask...
-    ");
+    ", "ADVENTURE".yellow());
+
+    
 
     println!("What is your name?");
 
-    let mut playerString = String::new();
+    let mut player_string = String::new();
 
-    io::stdin().read_line(&mut playerString)
+    io::stdin().read_line(&mut player_string)
         .expect("Oops! There was an error reading your input.");
 
-    println!("Your name shall be {}!", playerString.trim());
+    player.name = String::from(player_string.trim());
+    println!("{}, hmmmm...what an interesting name!", player.name.blue());
+    
 
     println!("
-            What class will you play as?
-            1> Warrior   (+Atk/-Mag)
-            2> Mage      (+Mag/-Def)
-            3> Knight    (+Def/-Atk)
-    ");
+        What class will you play as?
+        {0} Warrior   ({3}/{4})
+        {1} Mage      ({5}/{6})
+        {2} Knight    ({7}/{8})
+    ",
+        option(1),
+        option(2),
+        option(3),
+        "+Atk".blue(),
+        "-Mag".red(),
+        "+Mag".blue(),
+        "-Def".red(),
+        "+Def".blue(),
+        "-Atk".red()
+    );
 
-    let mut playerClass = String::new();
+    let mut player_class = String::new();
 
-    io::stdin().read_line(&mut playerClass)
+    io::stdin().read_line(&mut player_class)
         .expect("You should eneter a number between 1 and 3.");
 
-    let playerClass: i32 = match playerClass.trim().parse() {
+    let player_class: i32 = match player_class.trim().parse() {
         Ok(num) => num,
         Err(err) => panic!(""),
     };
 
-    print!("You chose: ");
-    match playerClass {
-        1 => println!("Warrior"),
-        2 => println!("Mage"),
-        3 => println!("Knight"),
-        n => println!("Human")
-    }
+    declare_class(player_class, &mut player);
 
-    let mut player = Player::new(100, 100, String::from(playerString.trim()), playerClass);
+
+    println!("...");
+    delay();
+    println!("...");
+    delay();
+
+    println!("It seems you are fit to lead! The path before you maybe harrowing,\nBut I do not fear one bit that you will fight to your fullest.\nBefore you go, however, take these...");
+
+    pause();
+
+    println!("{}", "＊ obtained Bag! Use it to keep track of your items.".green());
+    delay();
+    println!("{}", "＊ obtained Map! Use it to track your explorations.".green());
+
+    delay();
+    println!("Now go!");
+    delay();
 
     println!("
-            What shall you do next?
-            [1] Explore
-            [2] Statistics
-            [3] Rest (Save)
-            [4] Quit
+        What shall you do next?
+        [1] Explore
+        [2] Statistics
+        [3] Rest (Save)
+        [4] Quit
     ");
 
-    let mut playerDecision = String::new();
+    let mut player_decision = String::new();
     
-    io::stdin().read_line(&mut playerDecision)
+    io::stdin().read_line(&mut player_decision)
         .expect("You should enter a number between 1 and 4");
     
-    let playerDecision: i32 = match playerDecision.trim().parse() {
+    let player_decision: i32 = match player_decision.trim().parse() {
         Ok(num) => num,
         Err(err) => panic!("")
     };
 
-    match playerDecision {
+    match player_decision {
         1 => explore(),
         2 => stats(&mut player),
         n => do_nothing()
