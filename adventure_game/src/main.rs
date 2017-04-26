@@ -61,6 +61,20 @@ impl Monster {
     }
 }
 
+struct Item {
+    name: String,
+    quantity: i32,
+}
+
+impl Item {
+    pub fn new(name: String) -> Item {
+        Item {
+            name: name,
+            quantity: 0
+        }
+    }
+}
+
 struct Prompt {
     text: String,
     show_vertical_bars: bool
