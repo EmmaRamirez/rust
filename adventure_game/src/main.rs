@@ -70,10 +70,14 @@ impl Inventory {
         Inventory (vec)
     }
 
-    pub fn contains(&mut self, item: Item) {
+    pub fn contains(&mut self, itemName: String) {
         // if self.0.contains(item) {
 
         // }
+    }
+
+    pub fn _use(&mut self, itemName: String) {
+
     }
 
     pub fn add(&mut self, item: Item) {
@@ -82,7 +86,7 @@ impl Inventory {
 
     pub fn display(self) {
         println!("
-                Inventory
+                Bag
         ,.,.,.,,
         ;^.    ;^.  Light Snack     x3
         | |^^^^^^|  Red Gem         x4
@@ -318,10 +322,10 @@ fn main() {
     println!("It seems you are fit to lead! The path before you maybe harrowing,\nBut I do not fear one bit that you will fight to your fullest.\nBefore you go, however, take these...");
 
 
-
-    println!("{}", "＊ obtained Bag! Use it to keep track of your items.".green());
     delay();
-    println!("{}", "＊ obtained Map! Use it to track your explorations.".green());
+    println!("{}", "\n    ＊ obtained Bag! Use it to keep track of your items.".green());
+    
+    println!("{}", "    ＊ obtained Map! Use it to track your explorations.\n".green());
 
     delay();
     println!("Now go!");
@@ -330,12 +334,13 @@ fn main() {
 
     println!("
         What shall you do next?
-        [1] Explore
-        [2] Statistics
-        [3] Inventory
-        [3] Rest (Save)
-        [4] Quit
-    ");
+        [1] {}
+        [2] {}
+        [3] {}
+        [4] {}
+        [5] {}
+        [6] {}
+    ", "Explore".green(), "Statistics".cyan(), "Bag".blue(), "Map".blue(), "Rest (Save)".dimmed(), "Quit".dimmed());
 
     let mut player_decision = String::new();
     
