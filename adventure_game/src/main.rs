@@ -87,6 +87,11 @@ fn create_screen(text: &str) -> String {
     output
 }
 
+fn quit() {
+    println!("This will quit the game {} saving. Are you sure? [y/n]", "without".red());
+    
+}
+
 fn do_nothing() {
 
 }
@@ -263,7 +268,7 @@ fn main() {
 
     println!("It seems you are fit to lead! The path before you maybe harrowing,\nBut I do not fear one bit that you will fight to your fullest.\nBefore you go, however, take these...");
 
-    pause();
+
 
     println!("{}", "＊ obtained Bag! Use it to keep track of your items.".green());
     delay();
@@ -271,7 +276,8 @@ fn main() {
 
     delay();
     println!("Now go!");
-    delay();
+
+
 
     println!("
         What shall you do next?
