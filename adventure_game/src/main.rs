@@ -19,6 +19,7 @@ struct Player {
     attack: i32,
     defense: i32,
     magic: i32,
+    coins: i32,
 }
 
 impl Player {
@@ -30,14 +31,15 @@ impl Player {
             name: name,
             attack: 10,
             defense: 10,
-            magic: 10
+            magic: 10,
+            coins: 100,
         }
     }
+
     pub fn modify_current_hp(&mut self, amount: i32) {
         self.current_hp += amount;
     }
-    
-    
+
     pub fn current_hp(&self) -> &i32 { &self.current_hp }
     pub fn total_hp(&self) -> &i32 { &self.total_hp }
     pub fn class(&self) -> &i32 { &self.class }
@@ -58,6 +60,38 @@ impl Monster {
             attack: attack,
             species: species
         }
+    }
+}
+
+struct Inventory (Vec<Item>);
+
+impl Inventory {
+    pub fn new(vec: Vec<Item>) -> Inventory {
+        Inventory (vec)
+    }
+
+    pub fn contains(&mut self, item: Item) {
+        // if self.0.contains(item) {
+
+        // }
+    }
+
+    pub fn add(&mut self, item: Item) {
+        self.0.push(item);
+    }
+
+    pub fn display(self) {
+        println!("
+                Inventory
+        ,.,.,.,,
+        ;^.    ;^.  Light Snack     x3
+        | |^^^^^^|  Red Gem         x4
+        | |      |  Black Gem       x5
+        | |      |  Moon Stone      x1
+        | |      |  Plain Rock      x1
+        '.|      |  
+          `------`
+        ")
     }
 }
 
@@ -212,6 +246,7 @@ fn main() {
     //String::from(playerString.trim())
     // playerCLass
     let mut player = Player::new(100, 100, "".to_string(), 0);
+    let mut inventory = Inventory::new(Vec::new());
 
     init();
     
@@ -297,6 +332,7 @@ fn main() {
         What shall you do next?
         [1] Explore
         [2] Statistics
+        [3] Inventory
         [3] Rest (Save)
         [4] Quit
     ");
@@ -314,6 +350,7 @@ fn main() {
     match player_decision {
         1 => explore(),
         2 => stats(&mut player),
+        3 => inventory.display(),
         n => do_nothing()
     }
 
