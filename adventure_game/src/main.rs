@@ -117,11 +117,11 @@ fn explore() {
 fn stats(player: &Player) {
     println!("
         +---------------------------+
-        |       Name: {}            |
-        |       HP: {}/{}           |
-        |       Atk: {},            |
-        |       Def: {},            |
-        |       Mag: {}             |
+               Name: {}            
+               HP: {}/{}           
+               Atk: {},            
+               Def: {},            
+               Mag: {}             
         +---------------------------+
     ",
         player.name,
