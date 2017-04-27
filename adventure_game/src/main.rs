@@ -217,11 +217,7 @@ fn delay() {
 
 fn pause() {
     // from https://users.rust-lang.org/t/rusts-equivalent-of-cs-system-pause/4494/3
-    // let mut stdin = io::stdin();
-    // let mut stdout = io::stdout();
-
-    // write!(stdout, "\n> Press [ENTER] to continue...").unwrap();
-    // stdout.flush();
+    let _ = Command::new("cmd.exe").arg("/c").arg("pause").status();
 }
 
 fn declare_class(class: i32, player: &mut Player) {
@@ -243,7 +239,13 @@ fn declare_class(class: i32, player: &mut Player) {
         },
         n => "Human"
     };
-    println!("Ah! So you're a {}...", chosen_class.blue());
+    let class_message: &'static str = match class {
+        1 => "you prioritize strength, and believe battles can be won with brute force. You don't play much with the spirits.",
+        2 => "you are a spiritual being. Your spirit has the ability to control the elements. Be careful! You often leave yourself vulnerable to physical attacks.",
+        3 => "as a knight, you believe strongly in chivalry and follow the code. While your armor makes you a fierce defendent, it slows you down.",
+        _ => "you're a human. There's not a lot to say about you honestly."
+    };
+    println!("Ah! So you're a {}... I can tell that {}", chosen_class.blue(), class_message);
 }
 
 fn main() {
@@ -282,7 +284,8 @@ fn main() {
 
     player.name = String::from(player_string.trim());
     println!("{}, hmmmm...what an interesting name!", player.name.blue());
-    
+
+    pause();
 
     println!("
         What class will you play as?
@@ -313,23 +316,19 @@ fn main() {
 
     declare_class(player_class, &mut player);
 
-
-    println!("...");
-    delay();
-    println!("...");
-    delay();
+    pause();
 
     println!("It seems you are fit to lead! The path before you maybe harrowing,\nBut I do not fear one bit that you will fight to your fullest.\nBefore you go, however, take these...");
 
+    pause();
 
-    delay();
     println!("{}", "\n    ＊ obtained Bag! Use it to keep track of your items.".green());
-    
+    delay();
     println!("{}", "    ＊ obtained Map! Use it to track your explorations.\n".green());
 
+    pause();
+    println!("Now go!\n\n");
     delay();
-    println!("Now go!");
-
 
 
     println!("
