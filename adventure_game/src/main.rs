@@ -113,23 +113,7 @@ impl Item {
     }
 }
 
-struct Prompt {
-    text: String,
-    show_vertical_bars: bool
-}
 
-impl Prompt {
-    pub fn new(text: String, show_vertical_bars: bool) -> Prompt {
-        Prompt {
-            text: text,
-            show_vertical_bars: show_vertical_bars,
-        }
-    }
-
-    // pub fn to_ui(&self) -> String {
-    //
-    // }
-}
 
 fn create_screen(text: &str) -> String {
     let mut output = String::new();
