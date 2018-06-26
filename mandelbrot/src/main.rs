@@ -21,6 +21,12 @@ fn parse_pair<T: FromStr>(s: &str, separator: char) -> Option<(T, T)> {
     }
 }
 
+#[test]
+fn test_parse_pair() {
+    assert_eq!(parse_pair::<i32>("",    ","), None);
+    assert_eq!(parse_pair::<i32>("10,20",    ","), Some((10, 20)));
+}
+
 fn escape_time(c: Complex<f64>, limit: u32) -> Option< u32> {
     let mut z = Complex { re: 0.0, im: 0.0 };
     for i in 0..limit {
