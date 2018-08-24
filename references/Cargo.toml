@@ -1,0 +1,6 @@
+[package]
+name = "references"
+version = "0.1.0"
+authors = ["EmmaRamirez <ramirez.emma.g@gmail.com>"]
+
+[dependencies]
