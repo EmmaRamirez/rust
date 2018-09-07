@@ -17,3 +17,5 @@ In fact, it's the opposite: references must never outlive their referents. Rust 
     - &mut T, "ref mute T"
     - Mutable references are **not** `Copy`
 
+The distinction is similar to _multiple readers_ or _single writer_ rules at compile time.
+
